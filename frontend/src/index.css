@@ -1,0 +1,709 @@
+@import "tailwindcss";
+
+/* =========================================================
+   Vyapaar Bharat design tokens (colors taken from the logo)
+   neel   – brand blue  (#003297)
+   haldi  – brand orange (#f07c14), primary actions
+            (name kept as "haldi" so no component has to change)
+   page/line – cool off-white surfaces and hairlines
+   ========================================================= */
+@theme {
+  --font-display:
+    "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+  --font-sans:
+    "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-deva: "Mukta", "Nirmala UI", sans-serif;
+
+  /* Brand blue */
+  --color-neel-950: #00103f;
+  --color-neel-900: #001a5c;
+  --color-neel-800: #002577;
+  --color-neel-700: #003297;
+  --color-neel-600: #1a4bb8;
+  --color-neel-200: #c4d1f0;
+  --color-neel-100: #e2e9f8;
+  --color-neel-50: #f0f4fc;
+
+  /* Brand orange */
+  --color-haldi-500: #f07c14;
+  --color-haldi-600: #d9650a;
+  --color-haldi-100: #fdebd9;
+
+  --color-ink: #141a2e;
+  --color-muted: #586078;
+  --color-subtle: #8a91a5;
+  --color-page: #f4f6fb;
+  --color-line: #dde3ee;
+  --color-line-strong: #c3cbdc;
+
+  --color-ok: #1d7a4e;
+  --color-ok-bg: #e3f2e9;
+  --color-bad: #b3321f;
+  --color-bad-bg: #fbe8e4;
+  --color-warn: #a34a00;
+  --color-warn-bg: #fdeedf;
+
+  --radius-ctl: 10px;
+  --radius-panel: 16px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    background: var(--color-page);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: var(--color-ink);
+  }
+
+  :lang(hi),
+  .deva {
+    font-family: var(--font-deva);
+    letter-spacing: 0;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-neel-600);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* =========================================================
+   Components
+   ========================================================= */
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 32px;
+    }
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 18px;
+    border-radius: var(--radius-ctl);
+    font-weight: 600;
+    font-size: 14.5px;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.15s,
+      border-color 0.15s,
+      color 0.15s;
+    cursor: pointer;
+  }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .btn-sm {
+    height: 34px;
+    padding: 0 12px;
+    font-size: 13.5px;
+    border-radius: 8px;
+  }
+  .btn-lg {
+    height: 50px;
+    padding: 0 24px;
+    font-size: 16px;
+  }
+  .btn-primary {
+    background: var(--color-haldi-500);
+    color: var(--color-neel-950);
+    border-color: var(--color-haldi-600);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-haldi-600);
+  }
+  .btn-dark {
+    background: var(--color-neel-900);
+    color: #fff;
+  }
+  .btn-dark:hover:not(:disabled) {
+    background: var(--color-neel-700);
+  }
+  .btn-outline {
+    background: #fff;
+    color: var(--color-ink);
+    border-color: var(--color-line-strong);
+  }
+  .btn-outline:hover:not(:disabled) {
+    border-color: var(--color-ink);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: rgba(20, 26, 46, 0.06);
+  }
+  .btn-danger {
+    background: #fff;
+    color: var(--color-bad);
+    border-color: #ecc4bc;
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: var(--color-bad-bg);
+  }
+  .btn-ok {
+    background: var(--color-ok);
+    color: #fff;
+  }
+  .btn-ok:hover:not(:disabled) {
+    background: #176640;
+  }
+
+  /* Forms */
+  .label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 6px;
+  }
+  .hint {
+    font-size: 12.5px;
+    color: var(--color-muted);
+    margin-top: 6px;
+  }
+  .input {
+    display: block;
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: var(--radius-ctl);
+    border: 1px solid var(--color-line-strong);
+    background: #fff;
+    color: var(--color-ink);
+    font: inherit;
+    font-size: 15px;
+    transition:
+      border-color 0.15s,
+      box-shadow 0.15s;
+  }
+  textarea.input {
+    height: auto;
+    min-height: 110px;
+    padding: 12px 14px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  select.input {
+    appearance: none;
+    padding-right: 36px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23586078' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+  .input::placeholder {
+    color: var(--color-subtle);
+  }
+  .input:hover {
+    border-color: var(--color-subtle);
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--color-neel-600);
+    box-shadow: 0 0 0 3px var(--color-neel-100);
+  }
+  .input[aria-invalid="true"] {
+    border-color: var(--color-bad);
+  }
+
+  /* Surfaces */
+  .panel {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+  }
+  .divider {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid var(--color-line-strong);
+    background: #fff;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--color-ink);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .chip:hover {
+    border-color: var(--color-ink);
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--color-neel-900);
+    border-color: var(--color-neel-900);
+    color: #fff;
+  }
+
+  .link {
+    color: var(--color-neel-700);
+    font-weight: 600;
+    text-underline-offset: 3px;
+  }
+  .link:hover {
+    text-decoration: underline;
+  }
+}
+
+@keyframes board-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.board-row {
+  animation: board-in 0.45s ease-out both;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Split-flap digits on the home page requirement board */
+.flap-num {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  perspective: 300px;
+}
+.flap {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 0.95em;
+  height: 1.35em;
+  margin-left: 2px;
+  border-radius: 4px;
+  background: linear-gradient(#000b2e 0 50%, #00133f 50% 100%);
+  color: var(--color-haldi-500);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 2px 0 rgba(0, 0, 0, 0.45);
+  transform-origin: 50% 50%;
+  animation: flap-in 0.55s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+.flap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.flap-sep {
+  margin: 0 1px;
+  color: rgba(255, 255, 255, 0.4);
+}
+@keyframes flap-in {
+  0% {
+    transform: rotateX(-95deg);
+    filter: brightness(0.5);
+  }
+  100% {
+    transform: none;
+    filter: none;
+  }
+}
+/* Home page headline: 3D word flip-in + depth */
+.h3d {
+  perspective: 900px;
+}
+.h3d-word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  animation: word-in 0.85s cubic-bezier(0.2, 0.9, 0.25, 1.12) both;
+  text-shadow:
+    1px 1px 0 var(--color-neel-100),
+    2px 2px 0 var(--color-neel-100),
+    3px 3px 0 var(--color-neel-200),
+    6px 10px 18px rgba(0, 26, 92, 0.16);
+}
+.h3d-blue .h3d-word {
+  color: var(--color-neel-700);
+  text-shadow:
+    1px 1px 0 var(--color-neel-200),
+    2px 2px 0 var(--color-neel-200),
+    3px 3px 0 #9fb2e2,
+    6px 10px 18px rgba(0, 26, 92, 0.22);
+}
+.h3d-fade {
+  animation: fade-up 0.7s ease-out 0.9s both;
+}
+@keyframes word-in {
+  0% {
+    opacity: 0;
+    transform: translateY(0.45em) rotateX(-85deg);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Market street under the hero: shops slide, vehicles drive */
+.ms-shops {
+  animation: ms-scroll 70s linear infinite;
+}
+.ms-lane {
+  background: repeating-linear-gradient(90deg, #f5f7fb 0 34px, transparent 34px 64px);
+  opacity: 0.55;
+  background-size: 64px 3px;
+  animation: ms-lane 1.2s linear infinite;
+}
+.ms-vehicle {
+  position: absolute;
+  left: 0;
+  will-change: transform;
+  animation: var(--dir) var(--dur, 14s) linear var(--delay, 0s) infinite;
+}
+.ms-ltr {
+  --dir: ms-drive-ltr;
+}
+.ms-rtl {
+  --dir: ms-drive-rtl;
+}
+.ms-wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ms-spin 0.5s linear infinite;
+}
+.ms-bob {
+  animation: ms-bob 0.45s ease-in-out infinite alternate;
+}
+.ms-bob-fast {
+  animation-duration: 0.3s;
+}
+@keyframes ms-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes ms-lane {
+  to {
+    background-position: -64px 0;
+  }
+}
+@keyframes ms-drive-ltr {
+  from {
+    transform: translateX(-240px);
+  }
+  to {
+    transform: translateX(calc(100vw + 40px));
+  }
+}
+@keyframes ms-drive-rtl {
+  from {
+    transform: translateX(calc(100vw + 40px));
+  }
+  to {
+    transform: translateX(-240px);
+  }
+}
+@keyframes ms-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ms-bob {
+  to {
+    transform: translateY(-1.5px);
+  }
+}
+/* Reduced motion: a still street with vehicles parked in view */
+@media (prefers-reduced-motion: reduce) {
+  .ms-shops,
+  .ms-lane,
+  .ms-wheel,
+  .ms-bob {
+    animation: none !important;
+  }
+  .ms-vehicle {
+    animation: none !important;
+  }
+  .ms-ltr {
+    transform: translateX(12vw);
+  }
+  .ms-ltr + .ms-ltr {
+    transform: translateX(62vw);
+  }
+  .ms-rtl {
+    transform: translateX(40vw);
+  }
+  .ms-rtl + .ms-rtl {
+    transform: translateX(80vw);
+  }
+}
+/* Hero: floating trade icons + live ticker */
+.floater-parallax {
+  transform: translate3d(calc(var(--mx, 0) * var(--depth) * -1px), calc(var(--my, 0) * var(--depth) * -1px), 0);
+  transition: transform 0.4s ease-out;
+}
+.floater {
+  animation: floater 7s ease-in-out infinite;
+}
+@keyframes floater {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(5deg);
+  }
+}
+.ticker-in {
+  animation: ticker-in 0.45s ease-out both;
+}
+@keyframes ticker-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* =========================================================
+   TradeNetwork section (3D orbit, stats, CTA)
+   --tn-tilt is set on the <section> from the TILT constant
+   ========================================================= */
+@keyframes tnSpin {
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes tnCounter {
+  from {
+    transform: rotateZ(0deg) rotateX(calc(var(--tn-tilt, 62deg) * -1));
+  }
+  to {
+    transform: rotateZ(-360deg) rotateX(calc(var(--tn-tilt, 62deg) * -1));
+  }
+}
+@keyframes tnBeam {
+  from {
+    background-position: -40% 0;
+  }
+  to {
+    background-position: 140% 0;
+  }
+}
+@keyframes tnFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes tnHalo {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes tnPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+@keyframes tnGlobe {
+  0%,
+  100% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+}
+@keyframes tnGrid {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 48px;
+  }
+}
+@keyframes tnShine {
+  0% {
+    left: -35%;
+  }
+  60%,
+  100% {
+    left: 120%;
+  }
+}
+@keyframes tnDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(40px, 30px) scale(1.08);
+  }
+}
+@keyframes tnTextShine {
+  to {
+    background-position: 200% center;
+  }
+}
+@keyframes tnFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tn-spin {
+  animation: tnSpin 40s linear infinite;
+}
+.tn-counter {
+  animation: tnCounter 40s linear infinite;
+}
+.tn-beam {
+  background: linear-gradient(90deg, transparent, rgba(240, 124, 20, 0.95), transparent);
+  background-size: 40% 100%;
+  background-repeat: no-repeat;
+  animation: tnBeam 2.6s linear infinite;
+}
+.tn-float {
+  animation: tnFloat 5s ease-in-out infinite;
+}
+.tn-halo {
+  animation: tnHalo 8s linear infinite;
+}
+.tn-pulse {
+  animation: tnPulse 2.4s ease-out infinite;
+}
+.tn-globe {
+  animation: tnGlobe 8s ease-in-out infinite;
+}
+.tn-grid {
+  animation: tnGrid 2.5s linear infinite;
+}
+.tn-shine {
+  animation: tnShine 5s ease-in-out infinite;
+}
+.tn-drift {
+  animation: tnDrift 14s ease-in-out infinite;
+}
+.tn-slow {
+  animation: tnHalo 90s linear infinite;
+}
+.tn-text-shine {
+  animation: tnTextShine 4s linear infinite;
+}
+.tn-fade {
+  animation: tnFadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tn-spin,
+  .tn-beam,
+  .tn-float,
+  .tn-halo,
+  .tn-pulse,
+  .tn-globe,
+  .tn-grid,
+  .tn-shine,
+  .tn-drift,
+  .tn-slow,
+  .tn-text-shine,
+  .tn-fade {
+    animation: none !important;
+  }
+  .tn-counter {
+    animation: none !important;
+    transform: rotateX(calc(var(--tn-tilt, 62deg) * -1));
+  }
+}

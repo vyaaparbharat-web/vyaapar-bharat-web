@@ -1,0 +1,30 @@
+{
+  "name": "vyapaar-bharat-server",
+  "version": "2.0.0",
+  "description": "Vyapaar Bharat API (Express + MongoDB)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed": "node scripts/seed.js",
+    "create-admin": "node scripts/createSuperAdmin.js",
+    "migrate:pg": "node scripts/migrate-from-postgres.js",
+    "import:suppliers": "node scripts/import-suppliers.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "google-auth-library": "^11.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.9.5",
+    "multer": "^2.3.0",
+    "nodemailer": "^10.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0",
+    "pg": "^8.23.0"
+  }
+}
