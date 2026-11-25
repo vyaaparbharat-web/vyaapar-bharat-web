@@ -39,6 +39,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/requirements", requirementRoutes);
 app.use("/api/quotes", quoteRoutes);
 app.use("/api", require("./routes/catalog"));
+app.use("/api", require("./routes/categories"));
 app.use("/api", require("./routes/misc"));
 
 // Old URLs kept working

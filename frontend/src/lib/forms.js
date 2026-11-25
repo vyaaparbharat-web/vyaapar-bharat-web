@@ -19,6 +19,7 @@ export const companyToForm = (c = {}) => ({
   industry: c.industry || "",
   location: c.location || "",
   address: c.address || "",
+  mapUrl: c.map_url || "",
   description: c.description || "",
   phone: c.phone || "",
   email: c.email || "",

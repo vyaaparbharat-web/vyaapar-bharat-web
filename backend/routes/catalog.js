@@ -7,6 +7,9 @@ const { asyncHandler, fail, isId, toNumber, toList, str, plain, escapeRegex } = 
 
 // ---------- helpers ----------
 
+// Only accept real Google Maps links (share links or google.com/maps URLs)
+const MAPS_LINK = /^https:\/\/(www\.)?(google\.[a-z.]+\/maps|maps\.google\.[a-z.]+|maps\.app\.goo\.gl|goo\.gl\/maps)/i;
+
 function companyFields(body, { allowVerified }) {
   const fields = {
     name: str(body.name),
@@ -14,6 +17,7 @@ function companyFields(body, { allowVerified }) {
     industry: str(body.industry) || null,
     location: str(body.location) || null,
     address: str(body.address) || null,
+    map_url: MAPS_LINK.test(str(body.mapUrl)) ? str(body.mapUrl) : null,
     description: str(body.description) || null,
     phone: str(body.phone) || null,
     email: str(body.email) || null,
@@ -48,13 +52,14 @@ function flattenProduct(p, full = false) {
   const out = plain({ ...p, supplier_id: s ? s._id : p.supplier_id });
   out.supplier_name = s ? s.name : null;
   out.supplier_location = s ? s.location : null;
+  out.supplier_address = s ? s.address : null;
+  out.supplier_map_url = s ? s.map_url : null;
   out.supplier_verified = s ? s.verified : false;
   out.supplier_rating = s ? s.rating : null;
   if (full && s) {
     Object.assign(out, {
       supplier_business_type: s.business_type,
       supplier_industry: s.industry,
-      supplier_address: s.address,
       supplier_description: s.description,
       supplier_phone: s.phone,
       supplier_email: s.email,

@@ -7,4 +7,5 @@ module.exports = {
   Insight: require("./Insight"),
   Enquiry: require("./Enquiry"),
   Otp: require("./Otp"),
+  Category: require("./Category"),
 };

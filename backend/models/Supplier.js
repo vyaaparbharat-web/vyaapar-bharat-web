@@ -3,12 +3,18 @@ const { Schema, model } = require("mongoose");
 // A company / business profile shown in the supplier directory.
 const supplierSchema = new Schema(
   {
-    owner_id: { type: Schema.Types.ObjectId, ref: "User", default: null, index: true },
+    owner_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+      index: true,
+    },
     name: { type: String, required: true, trim: true },
     business_type: { type: String, default: null },
     industry: { type: String, default: null, index: true },
     location: { type: String, default: null },
     address: { type: String, default: null },
+    map_url: { type: String, default: null }, // optional exact Google Maps link (otherwise built from address/location)
     description: { type: String, default: null },
     phone: { type: String, default: null },
     email: { type: String, default: null },
@@ -25,6 +31,11 @@ const supplierSchema = new Schema(
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } },
 );
 
-supplierSchema.index({ name: "text", industry: "text", location: "text", description: "text" });
+supplierSchema.index({
+  name: "text",
+  industry: "text",
+  location: "text",
+  description: "text",
+});
 
 module.exports = model("Supplier", supplierSchema);
