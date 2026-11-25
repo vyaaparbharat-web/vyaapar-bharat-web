@@ -475,7 +475,7 @@ export default function Hero() {
     >
       <FloatingGoods />
 
-      <div className="container-page relative z-10 grid gap-12 pb-44 pt-12 sm:pb-48 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-16 lg:pb-40 lg:pt-20">
+      <div className="container-page relative z-10 grid gap-12 pb-[16rem] pt-12 sm:pb-[17.5rem] lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-16 lg:pb-[17.5rem] lg:pt-14">
         <div className="min-w-0">
           <LiveTicker requirements={data?.requirements || []} />
           <Headline />
@@ -539,7 +539,6 @@ export default function Hero() {
 
         <RequirementBoard data={data} loading={loading} />
       </div>
-
       {/* Animated market street in the background (behind text and board) */}
       <MarketStreet className="z-0 opacity-70" />
     </section>
