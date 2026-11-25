@@ -41,6 +41,8 @@ app.use("/api/quotes", quoteRoutes);
 app.use("/api", require("./routes/catalog"));
 app.use("/api", require("./routes/categories"));
 app.use("/api", require("./routes/banners"));
+// SEO: /sitemap.xml and supplier/product/category pages with their own title + share preview
+app.use(require("./routes/seo"));
 app.use("/api", require("./routes/misc"));
 
 // Old URLs kept working

@@ -24,6 +24,7 @@ import { useAuth } from "../context/AuthContext";
 import { homeFor } from "../lib/roles";
 import { useToast } from "../context/ToastContext";
 import { Field, FormError, Spinner } from "../components/ui";
+import { useSeo } from "../lib/seo";
 
 const GOOGLE_ENABLED = Boolean(import.meta.env.VITE_GOOGLE_CLIENT_ID);
 
@@ -188,6 +189,13 @@ function CodeStep({
 }
 
 export default function Login() {
+  // Page title for the browser tab; "noindex" keeps the login page out of Google
+  useSeo({
+    title: "Log in or create a free account",
+    description: "Log in to Vyapaar Bharat to post requirements, track quotes or list your business.",
+    path: "/login",
+    noindex: true,
+  });
   const { user, saveSession } = useAuth();
   const toast = useToast();
   const navigate = useNavigate();
@@ -477,7 +485,7 @@ export default function Login() {
                   : "We'll send a 6-digit code to confirm it's really you."}
               </p>
 
-                          {/* Google: one tap, email already verified by Google */}
+              {/* Google: one tap, email already verified by Google */}
               {GOOGLE_ENABLED && (
                 <>
                   <div className="mt-6 flex flex-col items-center gap-2.5">
