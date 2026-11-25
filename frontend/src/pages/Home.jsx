@@ -22,8 +22,9 @@ export default function Home() {
       <SponsoredBanners />
       <PopularProducts />
       <FeaturedSuppliers />
-      <HowItWorks />
       <TradeNetwork />
+      <HowItWorks />
+ 
       <PostRequirementCTA />
     </main>
   );
