@@ -15,7 +15,7 @@ import {
   Send,
   Shield,
 } from "lucide-react";
-import logo from "../assets/vyapaarbharatlogo.png";
+import logo from "../assets/vb-mark.png";
 import { useAuth } from "../context/AuthContext";
 import { Avatar } from "./ui";
 
@@ -62,17 +62,17 @@ export function Logo({ light = false }) {
       <img
         src={logo}
         alt=""
-        className="h-10 w-10 rounded-full bg-white object-contain"
+        className="h-12 w-12 rounded-full bg-white object-contain sm:h-14 sm:w-14"
       />
       <span className="leading-none">
         <span
-          className={`block font-display text-[19px] font-bold tracking-tight ${light ? "text-white" : "text-neel-900"}`}
+          className={`block font-display text-[20px] font-bold sm:text-[22px] tracking-tight ${light ? "text-white" : "text-neel-900"}`}
         >
           Vyapaar Bharat
         </span>
         <span
           lang="hi"
-          className={`mt-0.5 block text-[12px] ${light ? "text-white/60" : "text-muted"}`}
+          className={`mt-0.5 block text-[12.5px] sm:text-[13.5px] ${light ? "text-white/60" : "text-muted"}`}
         >
           व्यापार भारत
         </span>
