@@ -25,4 +25,5 @@ module.exports = {
   companyUpload: imageUploader("companies", "company"),
   insightUpload: imageUploader("insights", "insight"),
   categoryUpload: imageUploader("categories", "category"),
+  bannerUpload: imageUploader("banners", "banner"),
 };

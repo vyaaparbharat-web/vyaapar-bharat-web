@@ -8,4 +8,5 @@ module.exports = {
   Enquiry: require("./Enquiry"),
   Otp: require("./Otp"),
   Category: require("./Category"),
+  Banner: require("./Banner"),
 };

@@ -238,6 +238,7 @@ import AdminCompanies from "./pages/AdminCompanies";
 import AdminCompanyForm from "./pages/AdminCompanyForm";
 import AdminProducts from "./pages/AdminProducts";
 import AdminCategories from "./pages/AdminCategories";
+import AdminBanners from "./pages/AdminBanners";
 import AdminProductForm from "./pages/AdminProductForm";
 import AdminUsers from "./pages/AdminUsers";
 import AdminEnquiries from "./pages/AdminEnquiries";
@@ -348,6 +349,7 @@ export default function App() {
             <Route path="/admin/companies/:id/edit" element={<AdminCompanyForm />} />
             <Route path="/admin/products" element={<AdminProducts />} />
             <Route path="/admin/categories" element={<AdminCategories />} />
+            <Route path="/admin/banners" element={<AdminBanners />} />
             <Route path="/admin/products/add" element={<AdminProductForm />} />
             <Route path="/admin/products/:id/edit" element={<AdminProductForm />} />
             <Route path="/admin/users" element={<AdminUsers />} />
