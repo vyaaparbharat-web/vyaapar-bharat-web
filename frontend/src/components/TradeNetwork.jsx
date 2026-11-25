@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Globe2, Factory, Users, Package, MessageSquare, TrendingUp, Truck, ArrowUpRight } from "lucide-react";
+import {
+  Globe2,
+  Factory,
+  Users,
+  Package,
+  MessageSquare,
+  TrendingUp,
+  Truck,
+  ArrowUpRight,
+} from "lucide-react";
 
 /* =========================================================
    DATA
@@ -36,7 +45,9 @@ const TILT = 62; // how far the orbit plane leans back (degrees) – also used b
 
 function useInView(ref) {
   // Old browsers without IntersectionObserver just show the numbers straight away
-  const [inView, setInView] = useState(() => !("IntersectionObserver" in window));
+  const [inView, setInView] = useState(
+    () => !("IntersectionObserver" in window),
+  );
 
   useEffect(() => {
     const el = ref.current;
@@ -62,8 +73,12 @@ function useInView(ref) {
 // Counts "5.2L+" → 0.0L+ … 5.2L+, keeping prefix (₹) and suffix (L+, Cr+, %)
 function CountUp({ value, start }) {
   const match = String(value).match(/^([^\d]*)([\d.]+)(.*)$/);
-  const [calm] = useState(() => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
-  const [display, setDisplay] = useState(match && !calm ? `${match[1]}0${match[3]}` : value);
+  const [calm] = useState(
+    () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches,
+  );
+  const [display, setDisplay] = useState(
+    match && !calm ? `${match[1]}0${match[3]}` : value,
+  );
 
   useEffect(() => {
     if (!match || !start || calm) return undefined;
@@ -103,7 +118,9 @@ function OrbitNode({ node, radius, anim }) {
     // Places the node on the ring
     <div
       className="absolute left-1/2 top-1/2 [transform-style:preserve-3d]"
-      style={{ transform: `rotate(${node.angle}deg) translateX(${radius}px) rotate(${-node.angle}deg)` }}
+      style={{
+        transform: `rotate(${node.angle}deg) translateX(${radius}px) rotate(${-node.angle}deg)`,
+      }}
     >
       {/* Counter-rotates so the node always stands upright facing you */}
       <div className="tn-counter [transform-style:preserve-3d]" style={anim}>
@@ -118,14 +135,23 @@ function OrbitNode({ node, radius, anim }) {
             <Icon size={24} />
           </div>
 
-          <span className="mt-2 rounded-full bg-neel-950/70 px-2.5 py-1 text-[11px] font-bold text-white ring-1 ring-white/15">{node.label}</span>
+          <span className="mt-2 rounded-full bg-neel-950/70 px-2.5 py-1 text-[11px] font-bold text-white ring-1 ring-white/15">
+            {node.label}
+          </span>
         </div>
       </div>
     </div>
   );
 }
 
-function Orbit({ radius, duration, reverse = false, nodes = [], dots = [], dashed = false }) {
+function Orbit({
+  radius,
+  duration,
+  reverse = false,
+  nodes = [],
+  dots = [],
+  dashed = false,
+}) {
   const anim = {
     animationDuration: `${duration}s`,
     animationDirection: reverse ? "reverse" : "normal",
@@ -134,7 +160,13 @@ function Orbit({ radius, duration, reverse = false, nodes = [], dots = [], dashe
   return (
     <div
       className="tn-spin absolute left-1/2 top-1/2 rounded-full [transform-style:preserve-3d]"
-      style={{ width: radius * 2, height: radius * 2, marginLeft: -radius, marginTop: -radius, ...anim }}
+      style={{
+        width: radius * 2,
+        height: radius * 2,
+        marginLeft: -radius,
+        marginTop: -radius,
+        ...anim,
+      }}
     >
       {/* Ring */}
       <div
@@ -198,7 +230,10 @@ function TradeNetwork() {
   };
 
   return (
-    <section className="trade-network relative isolate overflow-hidden py-20 sm:py-24" style={{ "--tn-tilt": `${TILT}deg` }}>
+    <section
+      className="trade-network relative isolate mt-20 overflow-hidden py-20 sm:py-24"
+      style={{ "--tn-tilt": `${TILT}deg` }}
+    >
       {/* =====================================================
           BACKGROUND
       ===================================================== */}
@@ -207,11 +242,18 @@ function TradeNetwork() {
 
         <div
           className="absolute inset-0 opacity-25 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
-          style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
         />
 
         <div className="tn-drift absolute -left-40 -top-40 h-[480px] w-[480px] rounded-full bg-neel-600/40 blur-3xl" />
-        <div className="tn-drift absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-haldi-500/20 blur-3xl" style={{ animationDelay: "-6s" }} />
+        <div
+          className="tn-drift absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-haldi-500/20 blur-3xl"
+          style={{ animationDelay: "-6s" }}
+        />
 
         {/* Slow rotating outline rings */}
         <div className="tn-slow absolute -left-40 -top-40 h-[450px] w-[450px] rounded-full border border-dashed border-white/10" />
@@ -232,7 +274,9 @@ function TradeNetwork() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-haldi-500" />
             </span>
 
-            <span className="text-xs font-bold uppercase tracking-[0.18em] text-white">One Network. Endless Opportunities.</span>
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-white">
+              One Network. Endless Opportunities.
+            </span>
           </div>
 
           <h2 className="text-4xl font-black tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
@@ -244,7 +288,8 @@ function TradeNetwork() {
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/75 sm:text-lg">
-            Connecting businesses, products and opportunities across India and global markets.
+            Connecting businesses, products and opportunities across India and
+            global markets.
           </p>
         </div>
 
@@ -257,7 +302,10 @@ function TradeNetwork() {
           className="relative mx-auto mt-6 h-[300px] max-w-5xl [perspective:1400px] sm:mt-8 sm:h-[400px] lg:h-[450px]"
         >
           {/* Moving 3D grid floor */}
-          <div aria-hidden className="pointer-events-none absolute -inset-x-[30%] bottom-[-8%] h-[55%] [perspective:600px]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-x-[30%] bottom-[-8%] h-[55%] [perspective:600px]"
+          >
             <div
               className="tn-grid absolute inset-0 origin-bottom [mask-image:linear-gradient(to_top,black_10%,transparent_85%)] [transform:rotateX(68deg)]"
               style={{
@@ -274,13 +322,35 @@ function TradeNetwork() {
             <div
               ref={groupRef}
               className="relative h-full w-full transition-transform duration-700 ease-out [transform-style:preserve-3d]"
-              style={{ transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))" }}
+              style={{
+                transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
+              }}
             >
               {/* Tilted orbit plane */}
-              <div className="absolute inset-0 [transform-style:preserve-3d]" style={{ transform: `rotateX(${TILT}deg)` }}>
-                <Orbit radius={95} duration={18} dashed dots={[30, 210]} reverse />
-                <Orbit radius={170} duration={34} nodes={innerNodes} dots={[135, 315]} reverse />
-                <Orbit radius={260} duration={48} nodes={outerNodes} dots={[45, 160, 300]} />
+              <div
+                className="absolute inset-0 [transform-style:preserve-3d]"
+                style={{ transform: `rotateX(${TILT}deg)` }}
+              >
+                <Orbit
+                  radius={95}
+                  duration={18}
+                  dashed
+                  dots={[30, 210]}
+                  reverse
+                />
+                <Orbit
+                  radius={170}
+                  duration={34}
+                  nodes={innerNodes}
+                  dots={[135, 315]}
+                  reverse
+                />
+                <Orbit
+                  radius={260}
+                  duration={48}
+                  nodes={outerNodes}
+                  dots={[45, 160, 300]}
+                />
               </div>
 
               {/* Centre globe */}
@@ -291,12 +361,17 @@ function TradeNetwork() {
 
                   {/* Pulse waves */}
                   <span className="tn-pulse absolute inset-0 rounded-full border-2 border-white/50" />
-                  <span className="tn-pulse absolute inset-0 rounded-full border-2 border-haldi-500/60" style={{ animationDelay: "1.2s" }} />
+                  <span
+                    className="tn-pulse absolute inset-0 rounded-full border-2 border-haldi-500/60"
+                    style={{ animationDelay: "1.2s" }}
+                  />
 
                   {/* Sphere */}
                   <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-full bg-[radial-gradient(circle_at_30%_25%,#ffffff,#e2e9f8_40%,#c4d1f0_75%,#6f8fd6)] shadow-[0_30px_60px_-10px_rgba(0,16,63,0.85),inset_-14px_-18px_30px_rgba(0,50,151,0.35)]">
                     <Globe2 size={42} className="tn-globe text-neel-700" />
-                    <span className="mt-1 text-[10px] font-black uppercase tracking-[0.2em] text-neel-900">Vyapaar</span>
+                    <span className="mt-1 text-[10px] font-black uppercase tracking-[0.2em] text-neel-900">
+                      Vyapaar
+                    </span>
                     {/* Glossy highlight */}
                     <span className="pointer-events-none absolute left-5 top-4 h-8 w-14 -rotate-[25deg] rounded-full bg-white/70 blur-md" />
                   </div>
@@ -309,12 +384,19 @@ function TradeNetwork() {
         {/* =====================================================
             STATS — 3D tilt cards with count-up
         ===================================================== */}
-        <div ref={statsRef} className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+        <div
+          ref={statsRef}
+          className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6"
+        >
           {networkStats.map((stat, index) => {
             const Icon = stat.icon;
 
             return (
-              <div key={stat.label} className="tn-fade group [perspective:800px]" style={{ animationDelay: `${index * 80}ms` }}>
+              <div
+                key={stat.label}
+                className="tn-fade group [perspective:800px]"
+                style={{ animationDelay: `${index * 80}ms` }}
+              >
                 <div className="relative h-full overflow-hidden rounded-2xl border border-white/15 bg-white/[0.08] px-4 py-6 text-center backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-white/30 group-hover:bg-white/[0.14] group-hover:shadow-[0_25px_50px_-20px_rgba(0,16,63,0.9)] group-hover:[transform:translateY(-6px)_rotateX(10deg)]">
                   {/* Top highlight */}
                   <span className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent" />
@@ -327,7 +409,9 @@ function TradeNetwork() {
                     <CountUp value={stat.value} start={statsInView} />
                   </p>
 
-                  <p className="mt-1 text-[11px] font-medium text-white/60">{stat.label}</p>
+                  <p className="mt-1 text-[11px] font-medium text-white/60">
+                    {stat.label}
+                  </p>
                 </div>
               </div>
             );
@@ -346,8 +430,12 @@ function TradeNetwork() {
 
           <div className="relative flex flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left">
             <div>
-              <p className="text-xl font-extrabold tracking-tight text-white">Ready to grow your business?</p>
-              <p className="mt-1 text-sm text-white/65">Join thousands of businesses already trading on Vyapaar Bharat.</p>
+              <p className="text-xl font-extrabold tracking-tight text-white">
+                Ready to grow your business?
+              </p>
+              <p className="mt-1 text-sm text-white/65">
+                Join thousands of businesses already trading on Vyapaar Bharat.
+              </p>
             </div>
 
             <Link

@@ -15,14 +15,15 @@ export default function Home() {
       "Post your requirement free and get quotes from verified suppliers across India. Transporters, hosiery and garment manufacturers, tyre dealers, auto parts, wholesalers and more.",
   });
   return (
-    <main>
+    // -mb-20 cancels the footer's top margin: the last home section is dark and full-width, so it sits right on the footer
+    <main className="-mb-20">
       <Hero />
       <Categories />
       <SponsoredBanners />
       <PopularProducts />
       <FeaturedSuppliers />
-      <TradeNetwork />
       <HowItWorks />
+      <TradeNetwork />
       <PostRequirementCTA />
     </main>
   );
