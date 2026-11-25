@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUp, Eye, EyeOff, ExternalLink, Pencil, Trash2, X } from "lucide-react";
 import { api, assetUrl } from "../lib/api";
 import { useApi } from "../lib/useApi";
@@ -33,6 +33,11 @@ function BannerForm({ editing, onSaved, onCancel }) {
   const [form, setForm] = useState(() => (editing ? toForm(editing) : EMPTY));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  // The form opens at the top of the page: bring it into view
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
   const set = (e) => {
     setError("");
     setForm((f) => ({ ...f, [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value }));
@@ -62,7 +67,7 @@ function BannerForm({ editing, onSaved, onCancel }) {
   };
 
   return (
-    <form onSubmit={submit} noValidate className="panel mb-6 p-6">
+    <form ref={ref} onSubmit={submit} noValidate className="panel mb-6 scroll-mt-6 p-6">
       <div className="flex items-start justify-between gap-4">
         <h2 className="text-[18px] font-bold">{editing ? `Edit ${editing.title}` : "New banner"}</h2>
         <button type="button" onClick={onCancel} className="rounded-md p-1.5 text-muted hover:bg-page hover:text-ink" aria-label="Close">
