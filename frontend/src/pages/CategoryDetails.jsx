@@ -5,6 +5,7 @@ import { useApi } from "../lib/useApi";
 import { categoryImage } from "../lib/categories";
 import ProductCard from "../components/ProductCard";
 import { EmptyState, ErrorState, PageLoader } from "../components/ui";
+import { breadcrumbs, useSeo } from "../lib/seo";
 
 export default function CategoryDetails() {
   const { slug } = useParams();
@@ -12,6 +13,25 @@ export default function CategoryDetails() {
   const category = data?.category;
   const products = useApi(category ? `/api/products?category=${encodeURIComponent(category.name)}` : null);
   const [q, setQ] = useState("");
+  useSeo(
+    category && {
+      title: `${category.name} suppliers and products in India`,
+      description:
+        category.description ||
+        `Find ${category.name.toLowerCase()} suppliers, manufacturers and dealers. ${category.product_count} products listed, ${category.requirement_count} open buyer requirements. Post your requirement free.`,
+      path: `/categories/${category.slug}`,
+      image: category.image_url,
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@graph": [
+          breadcrumbs([
+            ["Categories", "/categories"],
+            [category.name, `/categories/${category.slug}`],
+          ]),
+        ],
+      },
+    },
+  );
 
   const all = useMemo(() => products.data?.products || [], [products.data]);
   const supplierCount = useMemo(() => new Set(all.map((p) => p.supplier_id)).size, [all]);

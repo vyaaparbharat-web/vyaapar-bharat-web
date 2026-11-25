@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { homeFor } from "../lib/roles";
 import { useToast } from "../context/ToastContext";
 import { Field, FormError, Spinner } from "../components/ui";
+import { useSeo } from "../lib/seo";
 
 function Option({ value, current, onSelect, icon: Icon, title, text }) {
   return (
@@ -26,6 +27,7 @@ function Option({ value, current, onSelect, icon: Icon, title, text }) {
 
 // Shown once after a Google sign-up: buyer or supplier?
 export default function ChooseAccount() {
+  useSeo({ title: "Choose your account type", noindex: true });
   const { user, saveSession } = useAuth();
   const toast = useToast();
   const navigate = useNavigate();

@@ -4,6 +4,7 @@ import { Search, Building2 } from "lucide-react";
 import { useApi } from "../lib/useApi";
 import SupplierCard from "../components/SupplierCard";
 import { EmptyState, ErrorState } from "../components/ui";
+import { useSeo } from "../lib/seo";
 
 export default function Suppliers() {
   const [params, setParams] = useSearchParams();
@@ -12,6 +13,11 @@ export default function Suppliers() {
   const location = params.get("location") || "";
   const verified = params.get("verified") === "1";
   const { data, loading, error, reload } = useApi("/api/suppliers");
+  useSeo({
+    title: [industry || "Suppliers, transporters and wholesalers", location ? `in ${location}` : "in India"].join(" "),
+    description: `Find verified ${industry ? industry.toLowerCase() : "manufacturers, wholesalers, transporters, tyre dealers and hosiery"} businesses${location ? ` in ${location}` : " across Punjab and India"}. See their products, call or send an enquiry.`,
+    path: "/suppliers",
+  });
 
   const update = (key, value) => {
     const next = new URLSearchParams(params);

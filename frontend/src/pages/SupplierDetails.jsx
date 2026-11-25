@@ -11,6 +11,7 @@ import {
 import { api } from "../lib/api";
 import { useApi } from "../lib/useApi";
 import { mapsUrl } from "../lib/maps";
+import { breadcrumbs, SITE_URL, useSeo } from "../lib/seo";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 import ProductCard from "../components/ProductCard";
@@ -169,6 +170,42 @@ export default function SupplierDetails() {
   const { data, loading, error, reload } = useApi(`/api/suppliers/${id}`);
   const productsQuery = useApi(`/api/products?supplierId=${id}`);
   const products = productsQuery.data?.products || [];
+  const sup = data?.supplier;
+  useSeo(
+    sup && {
+      title: [sup.name, sup.industry, sup.location].filter(Boolean).join(", "),
+      description:
+        sup.description ||
+        `${sup.name}${sup.business_type ? `, ${sup.business_type.toLowerCase()}` : ""}${sup.industry ? ` in ${sup.industry.toLowerCase()}` : ""}${sup.location ? `, ${sup.location}` : ""}. See products, address and phone number, or send an enquiry on Vyapaar Bharat.`,
+      path: `/suppliers/${sup.id}`,
+      image: sup.image_url || sup.gallery_images?.[0],
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "LocalBusiness",
+            "@id": `${SITE_URL}/suppliers/${sup.id}`,
+            name: sup.name,
+            description: sup.description || undefined,
+            url: `${SITE_URL}/suppliers/${sup.id}`,
+            image: sup.image_url ? `${SITE_URL}${sup.image_url}` : undefined,
+            telephone: sup.phone || undefined,
+            email: sup.email || undefined,
+            hasMap: mapsUrl(sup) || undefined,
+            address:
+              sup.address || sup.location
+                ? { "@type": "PostalAddress", streetAddress: sup.address || undefined, addressLocality: sup.location || undefined, addressCountry: "IN" }
+                : undefined,
+            areaServed: sup.service_areas?.length ? sup.service_areas : undefined,
+          },
+          breadcrumbs([
+            ["Suppliers", "/suppliers"],
+            [sup.name, `/suppliers/${sup.id}`],
+          ]),
+        ],
+      },
+    },
+  );
 
   useEffect(() => {
     if (hash === "#contact" && data)

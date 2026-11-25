@@ -5,6 +5,7 @@ import { useApi } from "../lib/useApi";
 import { useAuth } from "../context/AuthContext";
 import RequirementRow from "../components/RequirementRow";
 import { Badge, EmptyState, ErrorState, PageLoader } from "../components/ui";
+import { useSeo } from "../lib/seo";
 
 // Marketplace of buyer requirements (RFQs). Suppliers quote from here.
 export default function Requirements() {
@@ -16,6 +17,11 @@ export default function Requirements() {
 
   const { data, loading, error, reload } = useApi(`/api/requirements?status=${scope === "all" ? "all" : "active"}`);
   const mine = useApi(isSupplier ? "/api/quotes/mine" : null);
+  useSeo({
+    title: category ? `${category} buyer requirements` : "Buyer requirements (RFQs) from across India",
+    description: `Live buying requirements from businesses${category ? ` for ${category}` : ""}. See quantity, budget and delivery city, then call the buyer or send your quote.`,
+    path: "/requirements",
+  });
   const myQuoteFor = useMemo(() => Object.fromEntries((mine.data?.quotes || []).map((x) => [String(x.requirement_id), x])), [mine.data]);
 
   const update = (key, value) => {

@@ -5,9 +5,15 @@ import { useApi } from "../lib/useApi";
 import { date } from "../lib/format";
 import { INSIGHT_CATEGORIES } from "../lib/constants";
 import { EmptyState, ErrorState, Img, PageLoader } from "../components/ui";
+import { useSeo } from "../lib/seo";
 
 export default function Insights() {
   const { data, loading, error, reload } = useApi("/api/insights");
+  useSeo({
+    title: "Business insights and sourcing guides",
+    description: "Practical guides on sourcing, logistics costs, GST, trade and manufacturing for small and medium businesses in India.",
+    path: "/insights",
+  });
   const [cat, setCat] = useState("all");
   const all = useMemo(() => data?.insights || [], [data]);
   const list = cat === "all" ? all : all.filter((i) => i.category_id === cat);

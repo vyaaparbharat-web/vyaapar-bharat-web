@@ -2,11 +2,41 @@ import { Link, useParams } from "react-router-dom";
 import { useApi } from "../lib/useApi";
 import { date } from "../lib/format";
 import { ErrorState, Img, PageLoader } from "../components/ui";
+import { breadcrumbs, clip, SITE_URL, useSeo } from "../lib/seo";
 
 export default function InsightDetails() {
   const { id } = useParams();
   const { data, loading, error, reload } = useApi(`/api/insights/${id}`);
   const others = useApi("/api/insights");
+  const art = data?.insight;
+  useSeo(
+    art && {
+      title: art.title,
+      description: art.excerpt,
+      path: `/insights/${art.id}`,
+      image: art.image_url,
+      type: "article",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Article",
+            headline: art.title,
+            description: clip(art.excerpt),
+            image: art.image_url ? [`${SITE_URL}${art.image_url}`] : undefined,
+            datePublished: art.created_at,
+            dateModified: art.updated_at || art.created_at,
+            publisher: { "@id": `${SITE_URL}/#org` },
+            mainEntityOfPage: `${SITE_URL}/insights/${art.id}`,
+          },
+          breadcrumbs([
+            ["Insights", "/insights"],
+            [art.title, `/insights/${art.id}`],
+          ]),
+        ],
+      },
+    },
+  );
 
   if (loading) return <PageLoader />;
   if (error)

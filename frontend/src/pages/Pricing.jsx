@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
+import { useSeo } from "../lib/seo";
 
 const PLANS = [
   {
@@ -30,6 +31,11 @@ const PLANS = [
 ];
 
 export default function Pricing() {
+  useSeo({
+    title: "Plans and pricing for suppliers",
+    description: "Posting requirements is free for buyers. See plans for suppliers who want more leads and a featured listing on Vyapaar Bharat.",
+    path: "/pricing",
+  });
   return (
     <main className="container-page py-12 lg:py-16">
       <div className="max-w-2xl">

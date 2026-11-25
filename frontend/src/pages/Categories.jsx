@@ -4,10 +4,17 @@ import { Search } from "lucide-react";
 import { useApi } from "../lib/useApi";
 import CategoryTile from "../components/CategoryTile";
 import { EmptyState, ErrorState } from "../components/ui";
+import { useSeo } from "../lib/seo";
 
 export default function Categories() {
   const { data, loading, error, reload } = useApi("/api/categories");
   const [q, setQ] = useState("");
+  useSeo({
+    title: "All trade categories",
+    description:
+      "Browse suppliers and products by trade: transport and logistics, tyres, automobile parts, electrical, hardware, textiles and hosiery, interior, machinery and more.",
+    path: "/categories",
+  });
 
   const all = useMemo(() => data?.categories || [], [data]);
   const list = useMemo(() => {

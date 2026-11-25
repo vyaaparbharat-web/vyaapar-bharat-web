@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useSeo } from "../lib/seo";
 
 export default function NotFound() {
+  useSeo({ title: "Page not found", noindex: true });
   return (
     <main className="container-page py-24 text-center">
       <p className="num font-display text-[72px] font-extrabold text-neel-900">404</p>

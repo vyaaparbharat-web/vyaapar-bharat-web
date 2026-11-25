@@ -1,15 +1,80 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Vyapaar Bharat – post your requirement, get quotes from verified suppliers across India." />
-    <meta name="theme-color" content="#1b2559" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#001a5c" />
+
+    <!-- Default SEO. Each page replaces these with its own (see src/lib/seo.js),
+         and the server fills them in for supplier/product/category pages so share previews work. -->
+    <title>Vyapaar Bharat: B2B marketplace for suppliers, transporters and wholesalers in India</title>
+    <meta
+      name="description"
+      content="Post your requirement free and get quotes from verified suppliers across India. Transporters, hosiery and garment manufacturers, tyre dealers, auto parts, wholesalers and more."
+    />
+    <link rel="canonical" href="https://vyapaarbharat.net/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <meta property="og:site_name" content="Vyapaar Bharat" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:url" content="https://vyapaarbharat.net/" />
+    <meta property="og:title" content="Vyapaar Bharat: B2B marketplace for suppliers, transporters and wholesalers in India" />
+    <meta
+      property="og:description"
+      content="Post your requirement free and get quotes from verified suppliers across India. Transporters, hosiery and garment manufacturers, tyre dealers, auto parts, wholesalers and more."
+    />
+    <meta property="og:image" content="https://vyapaarbharat.net/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vyapaar Bharat: B2B marketplace for suppliers, transporters and wholesalers in India" />
+    <meta
+      name="twitter:description"
+      content="Post your requirement free and get quotes from verified suppliers across India."
+    />
+    <meta name="twitter:image" content="https://vyapaarbharat.net/og-image.jpg" />
+
+    <!-- Who we are, and the site search box Google can show under the result -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://vyapaarbharat.net/#org",
+            "name": "Vyapaar Bharat",
+            "alternateName": "व्यापार भारत",
+            "url": "https://vyapaarbharat.net/",
+            "logo": "https://vyapaarbharat.net/favicon.svg",
+            "email": "info@vyapaarbharat.com",
+            "telephone": "+91-62849-75308",
+            "areaServed": "IN"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://vyapaarbharat.net/#website",
+            "name": "Vyapaar Bharat",
+            "url": "https://vyapaarbharat.net/",
+            "inLanguage": "en-IN",
+            "publisher": { "@id": "https://vyapaarbharat.net/#org" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://vyapaarbharat.net/products?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&family=Mukta:wght@500;700&display=swap" rel="stylesheet" />
-    <title>Vyapaar Bharat – B2B trade network</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&family=Mukta:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>
