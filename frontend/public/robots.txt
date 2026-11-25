@@ -1,0 +1,15 @@
+# Vyapaar Bharat
+User-agent: *
+Allow: /
+
+# Private account and admin pages
+Disallow: /admin
+Disallow: /buyer/
+Disallow: /supplier/
+Disallow: /my-
+Disallow: /login
+Disallow: /register
+Disallow: /choose-account
+Disallow: /requirements/*/edit
+
+Sitemap: https://vyapaarbharat.net/sitemap.xml
