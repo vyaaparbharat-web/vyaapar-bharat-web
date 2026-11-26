@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Menu,
@@ -251,81 +252,88 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+      {/* Mobile drawer: rendered into <body>, because the header's backdrop-blur would trap a fixed element inside the 68px header */}
+      {mobileOpen &&
+        createPortal(
           <div
-            className="absolute inset-0 bg-neel-950/40"
-            onClick={() => setMobileOpen(false)}
-          />
-          <div
-            className="absolute right-0 top-0 flex h-full w-[86%] max-w-sm flex-col bg-white"
-            onClick={(e) => e.target.closest("a") && setMobileOpen(false)}
+            className="fixed inset-0 z-50 lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
           >
-            <div className="flex h-[68px] items-center justify-between border-b border-line px-5">
-              <span className="font-display text-lg font-bold">Menu</span>
-              <button
-                className="btn btn-ghost !px-2.5"
-                onClick={() => setMobileOpen(false)}
-                aria-label="Close menu"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto p-3">
-              {LINKS.map((l) => (
-                <NavLink
-                  key={l.to}
-                  to={l.to}
-                  className={({ isActive }) =>
-                    `block rounded-lg px-3 py-3 text-[16px] font-medium ${isActive ? "bg-neel-50 text-neel-900" : ""}`
-                  }
-                >
-                  {l.label}
-                </NavLink>
-              ))}
-              {user && (
-                <>
-                  <div className="mx-3 mb-2 mt-5 text-[13px] text-muted">
-                    Your account
-                  </div>
-                  {accountLinks(user).map(({ to, label, icon: Icon }) => (
-                    <NavLink
-                      key={to}
-                      to={to}
-                      className={({ isActive }) =>
-                        `flex items-center gap-3 rounded-lg px-3 py-3 ${isActive ? "bg-neel-50 text-neel-900" : ""}`
-                      }
-                    >
-                      <Icon className="h-4 w-4 text-muted" /> {label}
-                    </NavLink>
-                  ))}
-                </>
-              )}
-            </div>
-            <div className="grid gap-2 border-t border-line p-4">
-              <Link
-                to={primaryCta.to}
-                className="btn btn-primary btn-lg w-full"
-              >
-                {primaryCta.label}
-              </Link>
-              {user ? (
+            <div
+              className="absolute inset-0 bg-neel-950/40"
+              onClick={() => setMobileOpen(false)}
+            />
+            <div
+              className="absolute right-0 top-0 flex h-full w-[86%] max-w-sm flex-col bg-white"
+              onClick={(e) => e.target.closest("a") && setMobileOpen(false)}
+            >
+              <div className="flex h-[68px] items-center justify-between border-b border-line px-5">
+                <span className="font-display text-lg font-bold">Menu</span>
                 <button
-                  onClick={handleLogout}
-                  className="btn btn-outline w-full"
+                  className="btn btn-ghost !px-2.5"
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Close menu"
                 >
-                  Log out
+                  <X className="h-5 w-5" />
                 </button>
-              ) : (
-                <Link to="/login" className="btn btn-outline w-full">
-                  Log in or create account
+              </div>
+              <div className="flex-1 overflow-y-auto p-3">
+                {LINKS.map((l) => (
+                  <NavLink
+                    key={l.to}
+                    to={l.to}
+                    className={({ isActive }) =>
+                      `block rounded-lg px-3 py-3 text-[16px] font-medium ${isActive ? "bg-neel-50 text-neel-900" : ""}`
+                    }
+                  >
+                    {l.label}
+                  </NavLink>
+                ))}
+                {user && (
+                  <>
+                    <div className="mx-3 mb-2 mt-5 text-[13px] text-muted">
+                      Your account
+                    </div>
+                    {accountLinks(user).map(({ to, label, icon: Icon }) => (
+                      <NavLink
+                        key={to}
+                        to={to}
+                        className={({ isActive }) =>
+                          `flex items-center gap-3 rounded-lg px-3 py-3 ${isActive ? "bg-neel-50 text-neel-900" : ""}`
+                        }
+                      >
+                        <Icon className="h-4 w-4 text-muted" /> {label}
+                      </NavLink>
+                    ))}
+                  </>
+                )}
+              </div>
+              <div className="grid gap-2 border-t border-line p-4">
+                <Link
+                  to={primaryCta.to}
+                  className="btn btn-primary btn-lg w-full"
+                >
+                  {primaryCta.label}
                 </Link>
-              )}
+                {user ? (
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-outline w-full"
+                  >
+                    Log out
+                  </button>
+                ) : (
+                  <Link to="/login" className="btn btn-outline w-full">
+                    Log in or create account
+                  </Link>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </header>
   );
 }
